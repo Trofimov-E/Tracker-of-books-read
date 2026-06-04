@@ -57,7 +57,45 @@ def add_book(books):
     save_books(books)
     print('Книга добавлена!')
 
+def display_books(books):
+    """Отображение списка книг"""
+    clear_screen()  # Функция очистки экрана
+    if not books: #проверка на пустоту списка книг, если список пустой выходим из функции
+        print('Список книг пуст!')
+        return
+    print('\nСписок книг:')
+    print(f'\n{'№':<3} {'Автор':<20} {'Название книги':<40} {'Оценка книги':<15} {'Дата прочтения':<15}')
+    print('=' * 96)
+    for i, book in enumerate(books, 1):  # перебираем весь список книг и выводим на экран
+        print(f'{i:<3} {book['author']:<20} {book['title']:<40} {book['rating']:<15} {book['date']:<15}')
 
+def average_rating_books(books):
+    """Отображение средней оценки по всем прочитанным книгам"""
+    clear_screen()  # Функция очистки экрана
+    if not books:
+        print('Список книг пуст!')
+        return
+    avg = sum(book["rating"] for book in books) / len(books)
+
+    print(f'Средняя оценка прочитанных книг: {avg:.2f}')
+
+def sat_author(books):
+    """Отображение статистики по автору (сколько прочитано книг)"""
+    clear_screen()  # Функция очистки экрана
+    if not books:
+        print('Список книг пуст!')
+        return
+    authors = [book["author"] for book in books]
+    stats = Counter(authors)
+    print('\nСтатистика по авторам:')
+    for author, count in stats.items():
+        if count == 1:
+            print(f'{author}: {count} книга')
+        elif 2 <= count <= 4:
+            print(f'{author}: {count} книги')
+        else:
+            print(f'{author}: {count} книг')
+            
 def main():
     """Главная функция программы"""
     books = load_books()
