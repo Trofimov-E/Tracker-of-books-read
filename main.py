@@ -95,7 +95,25 @@ def sat_author(books):
             print(f'{author}: {count} книги')
         else:
             print(f'{author}: {count} книг')
-            
+
+def delete_book(books):
+    """Удаление книги"""
+    clear_screen()  # Функция очистки экрана
+    if not books:
+        print('Список книг пуст!')
+        return
+    display_books(books)
+    try:
+        i = int(input('Введите номер книги для удаления: ')) - 1
+        if 0 <= i < len(books):
+            removed = books.pop(i)
+            save_books(books)
+            print(f'Удалена книга: {removed['author']} — {removed['title']}')
+        else:
+            print('Неверный номер!')
+    except ValueError:
+        print('Введите номер книги!')
+
 def main():
     """Главная функция программы"""
     books = load_books()
