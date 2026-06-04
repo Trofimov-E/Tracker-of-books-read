@@ -20,6 +20,40 @@ def save_books(books):
     with open(BOOKS_FILE, 'w', encoding='utf-8') as f:
         json.dump(books, f, ensure_ascii=False, indent=2)
 
+def add_book(books):
+    """Добавление новой книги"""
+    clear_screen()  # Функция очистки экрана
+    while True:
+        try:
+            author = input('Введите автора: ')
+            if author.strip() != '':  # проверяем на пустоту ввода, если не пусто то переходим к следующему вводу
+                break
+            print('Автор не может быть пустым!')
+        except ValueError:
+            print('Введите автора!')
+    while True:
+        try:
+            title = input('Введите название книги: ')
+            if title.strip() != '':  # проверяем на пустоту ввода, если не пусто то переходим к следующему вводу
+                break
+            print('Название книги не может быть пустым!')
+        except ValueError:
+            print('Введите название книги!')
+    while True:
+        try:
+            rating = int(input('Введите оценку (1-5): '))
+            if 1 <= rating <= 5:
+                break
+            print('Введите число от 1 до 5')
+        except ValueError:
+            print('Введите число.')
+    date = input('Дата прочтения: ')
+    new_book = {'author': author.lower(), 'title': title.lower(), 'rating': rating, 'date': date}
+    books.append(new_book)
+    save_books(books)
+    print('Книга добавлена!')
+
+
 def main():
     """Главная функция программы"""
     books = load_books()
