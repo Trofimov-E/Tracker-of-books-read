@@ -39,6 +39,10 @@ def add_book(books):
             print('Название книги не может быть пустым!')
         except ValueError:
             print('Введите название книги!')
+    for book in books: # проверка есть ли введенная книга в списке прочитанных, если есть то выходим из функции добавления
+        if book['author'] == author.lower() and book['title'] == title.lower():
+            print('Такая книга уже прочитана.')
+            return
     while True:
         try:
             rating = int(input('Введите оценку (1-5): '))
